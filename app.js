@@ -25,6 +25,7 @@ mongoose
 const schoolsRouter = require('./routes/school');
 const jobsRouter = require('./routes/job');
 const projectsRouter = require('./routes/project');
+const postsRouter = require('./routes/post');
 
 const app = express();
 
@@ -63,6 +64,7 @@ app.use((req, res, next) => {
 app.use('/api/schools', schoolsRouter);
 app.use('/api/jobs', jobsRouter);
 app.use('/api/projects', projectsRouter);
+app.use('/api/posts', postsRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
