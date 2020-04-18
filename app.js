@@ -1,4 +1,3 @@
-const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
@@ -16,9 +15,11 @@ mongoose
     useFindAndModify: false,
   })
   .then(() => {
+    // eslint-disable-next-line no-console
     console.log('connected to: ', process.env.MONGO_URL);
   })
   .catch((error) => {
+    // eslint-disable-next-line no-console
     console.error(error);
   });
 
@@ -26,6 +27,7 @@ const schoolsRouter = require('./routes/school');
 const jobsRouter = require('./routes/job');
 const projectsRouter = require('./routes/project');
 const postsRouter = require('./routes/post');
+const notesRouter = require('./routes/note');
 
 const app = express();
 
@@ -65,14 +67,16 @@ app.use('/api/schools', schoolsRouter);
 app.use('/api/jobs', jobsRouter);
 app.use('/api/projects', projectsRouter);
 app.use('/api/posts', postsRouter);
+app.use('/api/notes', notesRouter);
 
 // catch 404 and forward to error handler
-app.use((req, res, next) => {
+app.use((req, res) => {
   res.status(404).json({ code: 'not found' });
 });
 
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   // always log the error
+  // eslint-disable-next-line no-console
   console.error('ERROR', req.method, req.path, err);
 
   // only render if the error ocurred before sending the response
