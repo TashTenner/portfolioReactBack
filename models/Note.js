@@ -6,6 +6,7 @@ const noteSchema = new Schema(
   {
     title: String,
     text: String,
+    date: Date,
   },
   {
     timestamps: {
